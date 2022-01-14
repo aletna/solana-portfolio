@@ -6,20 +6,20 @@ import {
   getSolanaUSD,
   getTotalBalance,
 } from "../utils/get-solana-data";
+import { imgHostSupport, numWithCommas } from "../utils/utils";
+import Image from "next/image";
 
 type Props = {};
 
 const Overview = ({}: Props) => {
-  const [wallets, setWallets] = useState([]);
+  const [wallets, setWallets] = useState([
+  ]);
   const [walletInput, setWalletInput] = useState("");
   const [totalBalance, setTotalBalance] = useState(0);
   const [solanaUSD, setSolanaUSD] = useState(0);
   const [allTokenData, setAllTokenData] = useState([]);
 
   useEffect(() => {
-      console.log(process.env.NEXT_PUBLIC_WALLET_2);
-      
-    // updateTotalBalance();
     updateSolanaUSD();
   }, []);
 
@@ -55,7 +55,7 @@ const Overview = ({}: Props) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       <div className="p-4">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           {wallets.length > 0 && (
@@ -89,28 +89,56 @@ const Overview = ({}: Props) => {
       <div className="p-4">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div>
-            Total Balance: {(totalBalance / LAMPORTS_PER_SOL).toFixed(2)} SOL -{" "}
-            {(solanaUSD * (totalBalance / LAMPORTS_PER_SOL)).toFixed(2)} USD
+            Total Balance:{" "}
+            {numWithCommas((totalBalance / LAMPORTS_PER_SOL).toFixed(2))} SOL -{" "}
+            {numWithCommas(
+              (solanaUSD * (totalBalance / LAMPORTS_PER_SOL)).toFixed(2)
+            )}{" "}
+            USD
           </div>
         </div>
       </div>
       {allTokenData.length > 0 && (
         <div className="p-4">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="font-bold grid grid-cols-1 gap-8 my-10 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2">
+              <div>Asset</div>
+              <div>Amount</div>
+              <div>Token name</div>
+              <div>Value</div>
+            </div>
             {allTokenData.map((token, idx) => {
               if (token.amount != 0 && !token.name.includes("SCAM")) {
                 return (
-                  <div key={idx} className="flex">
-                    {/* <div>{token.name}</div> */}
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 gap-8 my-10 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2"
+                  >
+                    <div className="flex items-center">
+                      {imgHostSupport(token.logoURI) && (
+                        <Image
+                          src={token.logoURI}
+                          alt={token.name}
+                          width="32"
+                          height="32z"
+                        />
+                      )}
+
+                      <span className="ml-2">{token.symbol}</span>
+                    </div>
                     <div>
-                      {(token.amount / 10 ** token.decimals).toFixed(2)}{" "}
-                      {token.symbol} -{" "}
+                      {(token.amount / 10 ** token.decimals).toFixed(2)}
+                    </div>
+                    <div>{token.name}</div>
+                    <div>
                       {token.priceUSD && (
                         <span>
-                          {(
-                            (token.amount / 10 ** token.decimals) *
-                            token.priceUSD
-                          ).toFixed(2)}{" "}
+                          {numWithCommas(
+                            (
+                              (token.amount / 10 ** token.decimals) *
+                              token.priceUSD
+                            ).toFixed(2)
+                          )}{" "}
                           USD
                         </span>
                       )}
