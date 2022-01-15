@@ -2,32 +2,17 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import { useWalletNfts, NftTokenAccount } from "@nfteyez/sol-rayz-react";
 import { NftCard } from "../components/NftCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getParsedNftAccountsByOwner } from "@nfteyez/sol-rayz";
+import UserContext from "../components/context/user";
 
 const nfts = () => {
   const [allNfts, setAllNfts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //   const res = [1, 2].map((uid) =>
-  //     useWalletNfts({
-  //       publicAddress: process.env.NEXT_PUBLIC_WALLET_2,
-  //     })
-  //   );
+  const userContext = useContext(UserContext)
 
   useEffect(() => {
-    getTokens([
-      process.env.NEXT_PUBLIC_WALLET_2,
-      process.env.NEXT_PUBLIC_WALLET_3,
-      process.env.NEXT_PUBLIC_WALLET_1,
-    //   process.env.NEXT_PUBLIC_WALLET_4,
-    //   process.env.NEXT_PUBLIC_WALLET_5,
-    //   process.env.NEXT_PUBLIC_WALLET_6,
-    //   process.env.NEXT_PUBLIC_WALLET_7,
-    //   process.env.NEXT_PUBLIC_WALLET_8,
-    //   process.env.NEXT_PUBLIC_WALLET_9,
-    //   process.env.NEXT_PUBLIC_WALLET_10,
-    //   process.env.NEXT_PUBLIC_WALLET_11,
-    ]);
+    getTokens(userContext.wallets);
   }, []);
   const getTokens = async (wallets: string[]) => {
     const tokenList = [];
