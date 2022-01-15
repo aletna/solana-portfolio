@@ -4,6 +4,10 @@
 /* purgecss end ignore */
 @tailwind utilities;
 
+body {
+  background-color: #102A43;
+}
+
 .app {
   overflow-y: auto !important;
 }
