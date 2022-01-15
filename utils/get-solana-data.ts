@@ -46,16 +46,18 @@ const _getAllTokenDataFiltered = async (walletKeyAsString: string) => {
           const logoURI = tkn.logoURI;
           const decimals = tkn.decimals;
           const priceUSD = await getTokenPrice(mint, symbol);
-          allTokens.push({
-            name,
-            symbol,
-            amount,
-            mint,
-            tags,
-            logoURI,
-            decimals,
-            priceUSD,
-          });
+          if (!name.includes("SCAM")) {
+            allTokens.push({
+              name,
+              symbol,
+              amount,
+              mint,
+              tags,
+              logoURI,
+              decimals,
+              priceUSD,
+            });
+          }
         }
       }
     }

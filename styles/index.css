@@ -3,3 +3,10 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+.app  {
+    overflow-y: auto !important;
+}
+.w-screen-active-sidebar {
+  width: calc(100vw - 16rem) !important;
+}

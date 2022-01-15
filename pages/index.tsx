@@ -1,17 +1,15 @@
 import Layout from "../components/Layout";
 import Overview from "../components/Overview";
-
-
+import { useContext } from "react";
 
 const IndexPage = () => {
-
   return (
-    <Layout title="Home">
-      <div className="p-8 w-full text-center text-2xl">Simple Portfolio Tracker</div>
-      <Overview />
-    </Layout>
+    <div>
+      <Layout title="Home" heading="Overview">
+        <Overview />
+      </Layout>
+    </div>
   );
 };
-
 
 export default IndexPage;

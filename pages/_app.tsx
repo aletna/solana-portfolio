@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppProps } from "next/app";
+import UserContext, { UserContextProvider } from "../components/context/user";
 
 import "../styles/index.css";
+import UserContextInit from "../components/context/UserContextInit";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const [wallets, setWallets] = useState<string[]>([]);
+
+  const updateWallets = (_wallets: string[]) => {
+    setWallets(_wallets);
+  };
+
+  const userContextValues = {
+    wallets,
+    updateWallets,
+  };
+
+  return (
+    <UserContextProvider value={userContextValues}>
+      <UserContextInit>
+        <Component {...pageProps} />
+      </UserContextInit>
+    </UserContextProvider>
+  );
 }
 
 export default MyApp;
