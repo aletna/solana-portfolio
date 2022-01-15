@@ -49,7 +49,7 @@ const Wallets = () => {
         <form className="pt-6" onSubmit={(e) => addWallet(e)}>
           <div className="flex items-center justify-between">
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border bg-port-100 rounded w-full py-2 px-3 text-port-600 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="wallet key"
               value={walletInput}
@@ -57,7 +57,7 @@ const Wallets = () => {
             />
             <div className="pl-4">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-port-500 hover:bg-port-600 active:bg-port-700 transition transform ease-in-out duration-300 text-port-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
               >
                 Add

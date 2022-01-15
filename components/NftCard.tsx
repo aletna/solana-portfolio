@@ -45,7 +45,7 @@ export const NftCard: FC<Props> = ({
             alt={details.data.name}
             src={image}
             onError={onImageError}
-            className="bg-gray-800  mx-auto w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 object-cover cursor-pointer hover:shadow-md rounded-t"
+            className="bg-port-800  mx-auto w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 object-cover cursor-pointer hover:shadow-md rounded-t"
           />
         ) : (
           // Fallback when preview isn't available
