@@ -73,7 +73,7 @@ const Overview = ({}: Props) => {
         </div>
       ) : (
         <div>
-          <div className="text-center text-2xl pt-16">No Wallet Connect.</div>
+          <div className="text-center text-2xl pt-16 pb-8">No wallet connected.</div>
           <Wallets />
         </div>
       )}
