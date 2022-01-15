@@ -1,4 +1,4 @@
-import React, {  useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   aggregateTokenData,
   getAllTokenDataFiltered,
@@ -13,12 +13,11 @@ import UserContext from "./context/user";
 type Props = {};
 
 const Overview = ({}: Props) => {
-  
   const [totalBalance, setTotalBalance] = useState(0);
   const [solanaUSD, setSolanaUSD] = useState(0);
   const [allTokenData, setAllTokenData] = useState([]);
 
-  const userContext = useContext(UserContext)
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     updateSolanaUSD();
@@ -45,20 +44,19 @@ const Overview = ({}: Props) => {
     setTotalBalance(bal);
   };
 
-
   return (
     <div>
-      <div className="grid grid-cols-1 gap-8 my-10 xl:grid-cols-2">
-        <div className="mx-auto w-full">
-          <Wallets
-            
-          />
-        </div>
+      {userContext.wallets?.length > 0 ? (
         <div className="mx-auto w-full">
           <WalletSummary totalBalance={totalBalance} solanaUSD={solanaUSD} />
           <TokenTable tokenData={allTokenData} />
         </div>
-      </div>
+      ) : (
+        <div>
+          <div className="text-center text-2xl pt-16">No Wallet Connect.</div>
+          <Wallets />
+        </div>
+      )}
     </div>
   );
 };

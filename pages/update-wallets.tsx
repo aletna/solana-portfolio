@@ -1,11 +1,10 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import UpdateWallets from '../components/UpdateWallets'
+import Layout from "../components/Layout";
+import Wallets from "../components/Wallets";
 
 const UpdateWalletsPage = () => (
   <Layout title="Update Wallets" heading="Update">
-    <UpdateWallets />
+    <Wallets />
   </Layout>
-)
+);
 
-export default UpdateWalletsPage
+export default UpdateWalletsPage;

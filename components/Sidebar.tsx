@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import UserContext from "./context/user";
+import { shortenAddress } from "../utils/utils";
 
 type Props = {
   isSidebarOpen: boolean;
@@ -24,33 +26,57 @@ const links = [
 
 const Sidebar = ({ closeSidebar, isSidebarOpen }: Props) => {
   const router = useRouter();
-  console.log(router.asPath);
+  const userContext = useContext(UserContext);
+
   return (
     <div
       className={`transition-all  duration-500  fixed top-0 ${
         isSidebarOpen ? "left-0 z-20" : "-left-64"
       }`}
     >
-      <div className="flex h-screen overflow-y-auto flex-col bg-white  w-64 px-4 py-8 border-r min-h-screen relative">
+      <div className="flex h-screen overflow-y-auto flex-col bg-port-800  w-64 px-4 py-8 border-r border-port-800 shadow-sm shadow-port-800 min-h-screen relative">
         <button
           onClick={closeSidebar}
-          className="absolute top-1 right-1  text-gray-600 w-8 h-8 rounded-full flex items-center justify-center active:bg-gray-300 focus:outline-none ml-6 hover:bg-gray-200 hover:text-gray-800"
+          className="absolute top-1 right-1 transition transform ease-linear duration-300  text-port-300 w-8 h-8 rounded-full flex items-center justify-center active:bg-port-300 focus:outline-none ml-6 hover:bg-port-200 hover:text-port-800"
         >
           <FontAwesomeIcon icon={faTimes} size="sm" />
         </button>
         <Link href="/">
           <h2 className="text-3xl font-semibold text-gray-800 cursor-pointer">
-            <span className="text-indigo-500 ml-1">harbor</span>
+            <span className="text-port-300 ml-1">harbor</span>
           </h2>
         </Link>
         <div className="flex flex-col mt-6  justify-between flex-1">
           <nav className="text">
+            {userContext.wallets?.length > 0 && (
+              <div className="mt-5 rounded-md border border-port-300  p-3">
+                {userContext.wallets.map((wallet, idx) => {
+                  return (
+                    <a
+                      key={idx}
+                      className={`capitalize flex items-center p-1 text-port-500 hover:text-port-300 text-sm transition transform ease-linear duration-300 `}
+                    >
+                      <span className="font-medium">
+                        {shortenAddress(wallet)}
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+
             <Link href="/update-wallets">
-              <a className="flex items-center px-4 py-2 mt-5 rounded-md text-gray-600 hover:text-gray-700 hover:bg-gray-200 transition-colors transform">
+              <a
+                className={`capitalize flex items-center px-4 py-2 ${
+                  "/update-wallets" === router.asPath
+                    ? "bg-port-200 text-port-700"
+                    : "text-port-100 hover:bg-port-200 hover:text-port-700 transition-colors duration-200 transform"
+                }  rounded-md mt-5 `}
+              >
                 <span className="font-medium">Add Wallets</span>
               </a>
             </Link>
-            <hr className="my-6" />
+            <hr className="my-6 border-port-300" />
             {links.map((link, index) => {
               const { id, url, text } = link;
               return (
@@ -58,8 +84,8 @@ const Sidebar = ({ closeSidebar, isSidebarOpen }: Props) => {
                   <a
                     className={`capitalize flex items-center px-4 py-2 ${
                       url === router.asPath
-                        ? "bg-gray-200 text-gray-700"
-                        : "text-gray-600 hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 transform"
+                        ? "bg-port-200 text-port-700"
+                        : "text-port-100 hover:bg-port-200 hover:text-port-700 transition-colors duration-200 transform"
                     }  rounded-md mt-5 `}
                   >
                     <span className="font-medium">{text}</span>

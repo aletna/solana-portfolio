@@ -12,8 +12,11 @@ const nfts = () => {
   const userContext = useContext(UserContext)
 
   useEffect(() => {
+    console.log(userContext.wallets);
+    
     getTokens(userContext.wallets);
-  }, []);
+  }, [userContext.wallets]);
+
   const getTokens = async (wallets: string[]) => {
     const tokenList = [];
     console.log(wallets);
@@ -61,10 +64,10 @@ const NftList = ({ nfts, error }: NftListProps) => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
-      {nfts?.map((nft) => {
+      {nfts?.map((nft,idx) => {
         //   TODO: do a check if src exists
         if (nft.data.uri.split(".").slice(-1)[0] != "txt") {
-          return <NftCard key={nft.mint} details={nft} onSelect={() => {}} />;
+          return <NftCard key={idx} details={nft} onSelect={() => {}} />;
         }
         return;
       })}

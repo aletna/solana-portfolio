@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 const IndexPage = () => {
   return (
-    <div>
+    <div className="bg-port-900 text-port-100">
       <Layout title="Home" heading="Overview">
         <Overview />
       </Layout>

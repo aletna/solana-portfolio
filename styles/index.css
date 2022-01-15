@@ -4,9 +4,18 @@
 /* purgecss end ignore */
 @tailwind utilities;
 
-.app  {
-    overflow-y: auto !important;
+.app {
+  overflow-y: auto !important;
 }
 .w-screen-active-sidebar {
   width: calc(100vw - 16rem) !important;
+}
+.image-container {
+  position: relative;
+}
+.image-container .image {
+  width: 100%;
+  height: 100%;
+  position: relative !important;
+  object-fit: cover;
 }

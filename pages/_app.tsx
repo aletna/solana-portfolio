@@ -4,6 +4,7 @@ import UserContext, { UserContextProvider } from "../components/context/user";
 
 import "../styles/index.css";
 import UserContextInit from "../components/context/UserContextInit";
+import { CookiesProvider } from "react-cookie";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [wallets, setWallets] = useState<string[]>([]);
@@ -18,11 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <UserContextProvider value={userContextValues}>
-      <UserContextInit>
-        <Component {...pageProps} />
-      </UserContextInit>
-    </UserContextProvider>
+    <CookiesProvider>
+      <UserContextProvider value={userContextValues}>
+        <UserContextInit>
+          <Component {...pageProps} />
+        </UserContextInit>
+      </UserContextProvider>
+    </CookiesProvider>
   );
 }
 
