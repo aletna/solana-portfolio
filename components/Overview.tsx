@@ -3,24 +3,26 @@ import {
   aggregateTokenData,
   getAllTokenDataFiltered,
   getSolanaUSD,
-  getTotalBalance,
+  getTotalSolBalance,
 } from "../utils/get-solana-data";
 import TokenTable from "./TokenTable";
 import WalletSummary from "./WalletSummary";
 import Wallets from "./Wallets";
 import UserContext from "./context/user";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 type Props = {};
 
 const Overview = ({}: Props) => {
+  const [solBalance, setSolBalance] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
-  const [solanaUSD, setSolanaUSD] = useState(0);
+  const [solanaUSDPrice, setSolanaUSDPrice] = useState(0);
   const [allTokenData, setAllTokenData] = useState([]);
 
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    updateSolanaUSD();
+    updateSolanaUSDPrice();
   }, []);
 
   useEffect(() => {
@@ -28,9 +30,13 @@ const Overview = ({}: Props) => {
     updateTokenData();
   }, [userContext.wallets]);
 
-  const updateSolanaUSD = async () => {
+  useEffect(() => {
+    getTotalBalance();
+  }, [solBalance, allTokenData]);
+
+  const updateSolanaUSDPrice = async () => {
     const res = await getSolanaUSD();
-    setSolanaUSD(res);
+    setSolanaUSDPrice(res);
   };
 
   const updateTokenData = async () => {
@@ -40,15 +46,29 @@ const Overview = ({}: Props) => {
   };
 
   const updateTotalBalance = async () => {
-    let bal = await getTotalBalance(userContext.wallets);
-    setTotalBalance(bal);
+    let bal = await getTotalSolBalance(userContext.wallets);
+    setSolBalance(bal);
+  };
+
+  const getTotalBalance = () => {
+    let tokenBalance = 0;
+    let solanaBalance = (solBalance / LAMPORTS_PER_SOL) * solanaUSDPrice;
+    for (const token of allTokenData) {
+      tokenBalance += (token.amount / 10 ** token.decimals) * token.priceUSD;
+    }
+    const total = tokenBalance + solanaBalance;
+    setTotalBalance(total);
   };
 
   return (
     <div>
       {userContext.wallets?.length > 0 ? (
         <div className="mx-auto w-full">
-          <WalletSummary totalBalance={totalBalance} solanaUSD={solanaUSD} />
+          <WalletSummary
+            solBalance={solBalance}
+            totalBalance={totalBalance}
+            solanaUSD={solanaUSDPrice}
+          />
           <TokenTable tokenData={allTokenData} />
         </div>
       ) : (

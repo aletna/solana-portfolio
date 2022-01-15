@@ -93,16 +93,16 @@ export const getAccountInfo = async (walletKeyAsString: string) => {
   return accountInfo && accountInfo;
 };
 
-export const getBalance = async (walletKeyAsString: string) => {
+export const getSolBalance = async (walletKeyAsString: string) => {
   let walletKey = new anchor.web3.PublicKey(walletKeyAsString);
   const balance = await connection.getBalance(walletKey);
   return balance && balance;
 };
 
-export const getTotalBalance = async (wallets: string[]) => {
+export const getTotalSolBalance = async (wallets: string[]) => {
   let balance = 0;
   for (let i = 0; i < wallets.length; i++) {
-    let res = await getBalance(wallets[i]);
+    let res = await getSolBalance(wallets[i]);
     if (res) {
       balance = balance + res;
     }
