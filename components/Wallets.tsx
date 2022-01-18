@@ -16,12 +16,12 @@ const Wallets = () => {
 
     if (walletInput.length > 0) {
       const isValidAddress: boolean = isValidSolanaAddress(walletInput);
-      if (isValidAddress) {
+      if (isValidAddress && !wallets.includes(walletInput)) {
         const _wallets = [...wallets];
         _wallets.push(walletInput);
         userContext.updateWallets(_wallets);
         setCookie("wallets", JSON.stringify(_wallets), {
-          // path: "/", 
+          // path: "/",
           maxAge: 3600, // Expires after 1hr
           sameSite: true,
         });

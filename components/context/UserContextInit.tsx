@@ -16,7 +16,8 @@ const UserContextInit = ({ children }: Props) => {
     if (cookies.wallets?.length > 0) {
       const validWallets = [];
       for (const wallet of cookies.wallets) {
-        if (isValidSolanaAddress(wallet)) {
+        if (isValidSolanaAddress(wallet) && !validWallets.includes(wallet)) {
+          console.log(validWallets)
           validWallets.push(wallet);
         }
       }

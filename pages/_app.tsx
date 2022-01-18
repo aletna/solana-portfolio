@@ -3,13 +3,16 @@ import { AppProps } from "next/app";
 import "../styles/index.css";
 import { CookiesProvider } from "react-cookie";
 import ContextProvider from "../components/context/ContextProvider";
+import ClientWalletProvider from "../components/context/ClientWalletProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CookiesProvider>
-      <ContextProvider>
+      <ClientWalletProvider>
+        <ContextProvider>
           <Component {...pageProps} />
-      </ContextProvider>
+        </ContextProvider>
+      </ClientWalletProvider>
     </CookiesProvider>
   );
 }
