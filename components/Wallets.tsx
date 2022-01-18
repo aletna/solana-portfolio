@@ -21,7 +21,7 @@ const Wallets = () => {
         _wallets.push(walletInput);
         userContext.updateWallets(_wallets);
         setCookie("wallets", JSON.stringify(_wallets), {
-          path: "/",
+          // path: "/", 
           maxAge: 3600, // Expires after 1hr
           sameSite: true,
         });
@@ -31,6 +31,7 @@ const Wallets = () => {
       }
     }
   };
+
   useEffect(() => {
     setWallets(userContext.wallets);
   }, [userContext.wallets]);

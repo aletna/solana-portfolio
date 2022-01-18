@@ -22,6 +22,11 @@ const links = [
     url: "/nfts",
     text: "NFTs",
   },
+  {
+    id: 2,
+    url: "/exchange",
+    text: "Exchange",
+  },
 ];
 
 const Sidebar = ({ closeSidebar, isSidebarOpen }: Props) => {
