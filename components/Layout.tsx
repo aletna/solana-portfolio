@@ -66,7 +66,7 @@ const Layout = ({
               : "translate-x-0 w-full"
           } transition-all  duration-500  w-screen  `}
         >
-          <div style={{backgroundColor:'transparent !important'}} className="fixed top-0 right-0 z-30 text-right">
+          <div style={{backgroundColor:'transparent !important'}} className="fixed top-2 right-2 z-30 text-right">
             {/* <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box"> */}
             <WalletMultiButton style={{backgroundColor:'transparent !important'}} className="btn btn-ghost ml-auto" />
             {/* {wallet.publicKey && <WalletDisconnectButton />} */}
