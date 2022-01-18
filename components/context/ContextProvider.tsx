@@ -16,10 +16,11 @@ type Props = {
 const ContextProvider = ({ children }: Props) => {
   const [wallets, setWallets] = useState<string[]>([]);
   const [tokens, setTokens] = useState<any[]>([]);
+  const [allNfts, setAllNfts] = useState<any[]>([]);
   const [solanaBalance, setSolanaBalance] = useState(0);
   const [solanaPrice, setSolanaPrice] = useState(0);
   const [tokenValue, setTokenValue] = useState(0);
-  const [totalValue, setTotalValue] = useState(0)
+  const [totalValue, setTotalValue] = useState(0);
 
   const updateWallets = (_wallets: string[]) => {
     setWallets(_wallets);
@@ -75,14 +76,21 @@ const ContextProvider = ({ children }: Props) => {
     let tokenBalance = 0;
 
     for (const token of tokens) {
-      tokenBalance += (token.amount / 10 ** token.decimals) * token.priceUSD;
+      if (token.priceUSD) {
+        tokenBalance += (token.amount / 10 ** token.decimals) * token.priceUSD;
+      }
     }
     setTokenValue(tokenBalance);
   };
+
   const updateTotalValue = () => {
     let solanaValue = (solanaBalance / LAMPORTS_PER_SOL) * solanaPrice;
     const total = tokenValue + solanaValue;
     setTotalValue(total);
+  };
+
+  const updateAllNfts = (_nfts: any[]) => {
+    setAllNfts(_nfts)
   };
 
   const userContextValues = {
@@ -98,6 +106,8 @@ const ContextProvider = ({ children }: Props) => {
     updateTokenValue,
     totalValue,
     updateTotalValue,
+    allNfts,
+    updateAllNfts,
   };
 
   return (

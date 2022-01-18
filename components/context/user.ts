@@ -13,6 +13,8 @@ export interface UserProps {
   updateTokenValue: () => void;
   totalValue: number;
   updateTotalValue: () => void;
+  allNfts: any[];
+  updateAllNfts: (nfts: any[]) => void;
 }
 
 const UserContext = createContext<UserProps>({
@@ -28,6 +30,8 @@ const UserContext = createContext<UserProps>({
   updateTokenValue: () => {},
   totalValue: 0,
   updateTotalValue: () => {},
+  allNfts: [],
+  updateAllNfts: (nfts: any[]) => {},
 });
 
 export const UserContextConsumer = UserContext.Consumer;

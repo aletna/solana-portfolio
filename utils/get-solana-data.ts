@@ -45,7 +45,11 @@ const _getAllTokenDataFiltered = async (walletKeyAsString: string) => {
           const tags = tkn.tags;
           const logoURI = tkn.logoURI;
           const decimals = tkn.decimals;
-          const priceUSD = await getTokenPrice(mint, symbol);
+          let priceUSD = await getTokenPrice(mint, symbol);
+          if (!symbol.includes("SCAM") && !priceUSD) {
+            priceUSD = await getTokenPrice2(name);
+          }
+
           if (!name.includes("SCAM")) {
             allTokens.push({
               name,
@@ -187,4 +191,26 @@ export const getTokenPrice = async (mint: string, symbol?: string) => {
   if (symbol && (symbol == "USDC" || symbol == "USDT")) {
     return 1;
   }
+  return
+};
+
+export const getTokenPrice2 = async (name: string) => {
+  try {
+    const res = await fetch(
+      "https://api.coingecko.com/api/v3/coins/" + name.toLowerCase()
+    );
+    if (res) {
+      const priceData = await res.json();
+      if (!priceData.error) {
+        return priceData.market_data.current_price.usd;
+      } else {
+        console.log("oops, something went wrong fetching the token price for", name);
+      }
+    } else {
+      console.log("oops, something went wrong fetching the token price for", name);
+    }
+  } catch (e) {
+    console.log("oops, something went wrong fetching the token price for", name);
+  }
+  return;
 };
