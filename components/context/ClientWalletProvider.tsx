@@ -35,10 +35,10 @@ export const Wallet: FC = (props) => {
             new PhantomWalletAdapter(),
             new SlopeWalletAdapter(),
             new SolflareWalletAdapter(),
-            new TorusWalletAdapter(),
+            // new TorusWalletAdapter(),
             new LedgerWalletAdapter(),
-            new SolletWalletAdapter({ network }),
-            new SolletExtensionWalletAdapter({ network }),
+            // new SolletWalletAdapter({ network }),
+            // new SolletExtensionWalletAdapter({ network }),
         ],
         [network]
     );

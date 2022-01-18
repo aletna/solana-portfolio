@@ -25,6 +25,8 @@
     "cookie": "^0.4.1",
     "material-ui-popup-state": "^2.0.0",
     "next": "latest",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^9.0.0",
     "react": "^17.0.2",
     "react-async-hook": "^4.0.0",
     "react-cookie": "^4.1.1",
