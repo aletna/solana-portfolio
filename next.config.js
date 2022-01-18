@@ -37,7 +37,7 @@ const plugins = [
 ];
 
 const nextConfig = {
-  distDir: "build",
+  // distDir: "build",
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback.fs = false;
