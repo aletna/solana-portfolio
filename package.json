@@ -23,6 +23,7 @@
     "@solana/wallet-adapter-wallets": "^0.14.2",
     "@solana/web3.js": "^1.31.0",
     "cookie": "^0.4.1",
+    "daisyui": "^1.24.3",
     "material-ui-popup-state": "^2.0.0",
     "next": "latest",
     "next-compose-plugins": "^2.2.1",
